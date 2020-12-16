@@ -2,7 +2,8 @@ function project18(n)
 Y=randi(2,n)-ones(n);
 last=1;
 while last==1
-image(100*Y)
+disp(Y);
+image(71*Y)
 last=0;
 X=zeros(n);
 X(1,1)=X(1,1)+5;
@@ -80,11 +81,17 @@ X(n,n)=X(n,n)+5;
 
 for ii=1:n
     for jj=1:n
-        if X(ii,jj)>6
-            if Y(ii,jj)==0
+        if Y(ii,jj)==0
+            if X(ii,jj)~=6&&X(ii,jj)~=5
+                Y(ii,jj)=1;
                 last=1;
             end
-            Y(ii,jj)=1;
+        end
+        if Y(ii,jj)==1
+            if X(ii,jj)==5
+                Y(ii,jj)=0;
+                last=1;
+            end
         end
     end
 end
