@@ -2,7 +2,7 @@ function project18(n)
 Y=randi(2,n)-ones(n);
 last=1;
 while last==1
-disp(Y)
+image(100*Y)
 last=0;
 X=zeros(n);
 X(1,1)=X(1,1)+5;
@@ -88,5 +88,5 @@ for ii=1:n
         end
     end
 end
+pause(1);
 end
-            
