@@ -3,7 +3,7 @@ die=0; %(死人) 如果周圍有3個成年人則會產生小孩
 child=50;%(活人) 剛出生的小孩
 young=220; %(活人) 代表處於可繁殖狀態
 adult=250;
-old=350;%(活人) 代表即將自然死亡的老人
+old=550;%(活人) 代表即將自然死亡的老人
 virus=1;
 poison=2;
 kill=0;
@@ -80,14 +80,14 @@ for ii=1:n
             end
         end
         if Y(ii,jj)==young %討論有人的狀況
-            if X(ii,jj)<6
+            if X(ii,jj)<5
                 Y(ii,jj)=adult;
             else
                 Y(ii,jj)=die;
             end
             last=1;
         elseif Y(ii,jj)==adult
-            if X(ii,jj)<6
+            if X(ii,jj)<4
                 Y(ii,jj)=old;
             else
                 Y(ii,jj)=die;
@@ -116,6 +116,21 @@ end
 end
 function [X,NZ]=arround(Y,X,life,consume,n,virus,Z)
     NZ=Z;
+    if Y(floor((n+1)/2),floor((n+1)/2))~=virus
+        NZ(floor((n+1)/2),floor((n+1)/2))=virus;
+    end
+    if Y(1,floor((n+1)/2))~=virus
+        NZ(floor((n+1)/2),floor((n+1)/2))=virus;
+    end
+    if Y(n,floor((n+1)/2))~=virus
+        NZ(floor((n+1)/2),floor((n+1)/2))=virus;
+    end
+    if Y(floor((n+1)/2),n)~=virus
+        NZ(floor((n+1)/2),1)=virus;
+    end
+    if Y(floor((n+1)/2),1)~=virus
+        NZ(floor((n+1)/2),1)=virus;
+    end
     if Y(1,1)==life
         X(2,1)=X(2,1)+consume;
         X(1,2)=X(1,2)+consume;
