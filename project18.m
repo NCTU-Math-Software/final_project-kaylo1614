@@ -1,9 +1,9 @@
 function project18(n,t)%n代表你想要給多大的範圍，t代表你想要放幾個成年人在圖上(t不可大於n的平方)
 die=0; %(死人) 如果周圍有3個成年人則會產生小孩
 child=50;%(活人) 剛出生的小孩
-young=220; %(活人) 代表處於可繁殖狀態
-adult=250;
-old=550;%(活人) 代表即將自然死亡的老人
+young=170; %(活人) 代表處於可繁殖狀態
+adult=180;
+old=190;%(活人) 代表即將自然死亡的老人
 virus=1;
 poison=2;
 kill=0;
@@ -26,9 +26,10 @@ while last==1
 image(uint8(Y))%映出圖形
 last=0; %初始值last=0代表族群位置已經固定了，每個族群都有固定的位置，不會畫出變化圖，last=1，代表族群人有波動，將繼續列出族群的變化，
 X=zeros(n);%初始畫周圍活人數量(預設值0代表沒有活人)
-[X,Z]=arround(Y,X,young,1,n,virus,Z);
-[X,Z]=arround(Y,X,adult,2,n,virus,Z);
-[X,Z]=arround(Y,X,old,0.5,n,virus,Z);
+[X,Z]=arround(Y,X,child,0,n,virus,Z,die);
+[X,Z]=arround(Y,X,young,1,n,virus,Z,die);
+[X,Z]=arround(Y,X,adult,2,n,virus,Z,die);
+[X,Z]=arround(Y,X,old,0.5,n,virus,Z,die);
 for ii=1:n
     for jj=1:n
         if Z(ii,jj)==virus
@@ -42,6 +43,7 @@ for ii=1:n
                     poison=3;
                 end
             elseif (ii~=1)&&(ii~=n)&&(jj~=1)&&(jj~=n)&&Y(ii,jj)~=die
+                disp(Z);
                 if rand(1)<0.5
                     if Z(ii+1,jj)~=virus
                         Z(ii+1,jj)=virus;
@@ -99,7 +101,7 @@ for ii=1:n
                 last=1;
             end
         elseif Y(ii,jj)==child
-            if X(ii,jj)>1&&X(ii,jj)<8
+            if (X(ii,jj)>1||(n<=5&&X(ii,jj)==1))&&X(ii,jj)<8
                 Y(ii,jj)=young;
             else
                 Y(ii,jj)=die;
@@ -114,28 +116,28 @@ end
 pause(1);
 end
 end
-function [X,NZ]=arround(Y,X,life,consume,n,virus,Z)
+function [X,NZ]=arround(Y,X,life,consume,n,virus,Z,die)
     NZ=Z;
-    if Y(floor((n+1)/2),floor((n+1)/2))~=virus
+    if Y(floor((n+1)/2),floor((n+1)/2))~=die&&n>9
         NZ(floor((n+1)/2),floor((n+1)/2))=virus;
     end
-    if Y(1,floor((n+1)/2))~=virus
+    if Y(1,floor((n+1)/2))~=die&&n>8
         NZ(floor((n+1)/2),floor((n+1)/2))=virus;
     end
-    if Y(n,floor((n+1)/2))~=virus
+    if Y(n,floor((n+1)/2))~=die&&n>7
         NZ(floor((n+1)/2),floor((n+1)/2))=virus;
     end
-    if Y(floor((n+1)/2),n)~=virus
+    if Y(floor((n+1)/2),n)~=die&&n>8
         NZ(floor((n+1)/2),1)=virus;
     end
-    if Y(floor((n+1)/2),1)~=virus
+    if Y(floor((n+1)/2),1)~=die&&n>7
         NZ(floor((n+1)/2),1)=virus;
     end
     if Y(1,1)==life
         X(2,1)=X(2,1)+consume;
         X(1,2)=X(1,2)+consume;
         X(2,2)=X(2,2)+consume;
-        if Z(2,2)~=virus
+        if Z(2,2)~=virus&&n>5
             NZ(2,2)=virus;
         end
     end
@@ -143,7 +145,7 @@ function [X,NZ]=arround(Y,X,life,consume,n,virus,Z)
         X(2,n)=X(2,n)+consume;
         X(1,n-1)=X(1,n-1)+consume;
         X(2,n-1)=X(2,n-1)+consume;
-        if Z(2,n-1)~=virus
+        if Z(2,n-1)~=virus&&n>7
             NZ(2,n-1)=virus;
         end
     end
@@ -151,7 +153,7 @@ function [X,NZ]=arround(Y,X,life,consume,n,virus,Z)
         X(n-1,1)=X(n-1,1)+consume;
         X(n,2)=X(n,2)+consume;
         X(n-1,2)=X(n-1,2)+consume;
-        if Z(n-1,2)~=virus
+        if Z(n-1,2)~=virus&&n>7
             NZ(n-1,2)=virus;
         end
     end
@@ -159,7 +161,7 @@ function [X,NZ]=arround(Y,X,life,consume,n,virus,Z)
         X(n,n-1)=X(n,n-1)+consume;
         X(n-1,n)=X(n-1,n)+consume;
         X(n-1,n--1)=X(n-1,n-1)+consume;
-        if Z(n-1,n-1)~=virus
+        if Z(n-1,n-1)~=virus&&n>6
             NZ(n-1,n-1)=virus;
         end
     end
