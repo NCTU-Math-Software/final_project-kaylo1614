@@ -12,8 +12,6 @@ last=1;
 Z=zeros(n);
 axis([0 1 0 1]); %先將座標畫出
 [A,B]=ginput(t);%點了t個點
-disp(A);
-disp(B);
 for kk=1:t%設置成年人在滑鼠所點的那t個點的位置
     for ii=1:n
     for jj=1:n
@@ -23,6 +21,7 @@ for kk=1:t%設置成年人在滑鼠所點的那t個點的位置
     end
     end
 end
+image(uint8(Y));pause(2);
 image([die child young adult old]);pause(3);
 
 while last==1
