@@ -42,9 +42,9 @@ for ii=1:n
                 if poison==0
                     kill=0;
                     poison=3;
+                    pause(1);
                 end
             elseif (ii~=1)&&(ii~=n)&&(jj~=1)&&(jj~=n)&&Y(ii,jj)~=die
-                disp(Z);
                 if rand(1)<0.5
                     if Z(ii+1,jj)~=virus
                         Z(ii+1,jj)=virus;
