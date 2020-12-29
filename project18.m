@@ -1,18 +1,19 @@
-function project18(n,t)%n代表你想要給多大的範圍，t代表你想要放幾個成年人在圖上(t不可大於n的平方)
+function lifemodel(n,t)%n代表你想要給多大的範圍，t代表你想要放幾個成年人在圖上(t不可大於n的平方)
 die=0; %(死人) 如果周圍有3個成年人則會產生小孩
 child=50;%(活人) 剛出生的小孩
 young=130; %(活人) 代表處於可繁殖狀態
 adult=150;%(活人) 代表處於可繁殖狀態
 old=390;%(活人) 代表即將自然死亡的老人
-image([die child young adult old]);pause(3);
 virus=1;
 poison=2;
 kill=0;
 Y=zeros(n);%紀錄圖上每個位置活死人的狀態 預設都是死人
 last=1;
-axis([0 1 0 1]); %先將座標畫出
 Z=zeros(n);
-[A ,B ,BUTTON]=ginput(t);%點了t個點
+axis([0 1 0 1]); %先將座標畫出
+[A,B]=ginput(t);%點了t個點
+disp(A);
+disp(B);
 for kk=1:t%設置成年人在滑鼠所點的那t個點的位置
     for ii=1:n
     for jj=1:n
@@ -22,6 +23,7 @@ for kk=1:t%設置成年人在滑鼠所點的那t個點的位置
     end
     end
 end
+image([die child young adult old]);pause(3);
 
 while last==1
 image(uint8(Y))%映出圖形
