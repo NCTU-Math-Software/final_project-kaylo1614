@@ -1,9 +1,10 @@
 function project18(n,t)%n代表你想要給多大的範圍，t代表你想要放幾個成年人在圖上(t不可大於n的平方)
 die=0; %(死人) 如果周圍有3個成年人則會產生小孩
 child=50;%(活人) 剛出生的小孩
-young=170; %(活人) 代表處於可繁殖狀態
-adult=180;
-old=190;%(活人) 代表即將自然死亡的老人
+young=130; %(活人) 代表處於可繁殖狀態
+adult=150;%(活人) 代表處於可繁殖狀態
+old=390;%(活人) 代表即將自然死亡的老人
+image([die child young adult old]);pause(3);
 virus=1;
 poison=2;
 kill=0;
